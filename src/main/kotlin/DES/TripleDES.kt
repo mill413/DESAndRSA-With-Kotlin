@@ -17,17 +17,17 @@ class TripleDES() {
         keys = arrayListOf(key1, key2, key3)
     }
 
-    fun encode(plainText: Bits): Bits {
+    fun encrypt(plainText: Bits): Bits {
         val des1 = DES(keys[0])
         val des2 = DES(keys[1])
         val des3 = DES(keys[2])
-        return des3.encode(des2.decode(des1.encode(plainText)))
+        return des3.encrypt(des2.decrypt(des1.encrypt(plainText)))
     }
 
-    fun decode(cypherText: Bits): Bits {
+    fun decrypt(cypherText: Bits): Bits {
         val des1 = DES(keys[0])
         val des2 = DES(keys[1])
         val des3 = DES(keys[2])
-        return des1.decode(des2.encode(des3.decode(cypherText)))
+        return des1.decrypt(des2.encrypt(des3.decrypt(cypherText)))
     }
 }

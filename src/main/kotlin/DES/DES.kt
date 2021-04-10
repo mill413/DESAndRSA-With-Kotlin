@@ -236,7 +236,7 @@ class DES(key: Bits) {
             blocks.add(value[i * 6 until i * 6 + 6])
         }
 
-        var res = Bits(32)
+        val res = Bits(32)
         for (i in 0 until 8) {
             val inputToSbox = blocks[i]
             val row = inputToSbox[0] * 2 + inputToSbox[5]
@@ -324,7 +324,7 @@ class DES(key: Bits) {
      * @param plainText 64位明文
      * @return 64位密文
      */
-    fun encode(plainText: Bits): Bits {
+    fun encrypt(plainText: Bits): Bits {
         generateKeys(keyBits)
         val fpText = initialPermutation(plainText)
         var l = fpText[0 until 32]
@@ -343,15 +343,15 @@ class DES(key: Bits) {
      * @param cypherText 64位密文
      * @return 64位明文
      */
-    fun decode(cypherText: Bits): Bits {
+    fun decrypt(cypherText: Bits): Bits {
         generateKeys(keyBits)
         subKeys.reverse()
         val fpText = initialPermutation(cypherText)
         var l = fpText[0 until 32]
         var r = fpText[32 until 64]
         subKeys.forEach {
-            var tmpl = l
-            var tmpr = r
+            val tmpl = l
+            val tmpr = r
             l = tmpr
             r = tmpl xor feistelFun(tmpr, it)
         }
