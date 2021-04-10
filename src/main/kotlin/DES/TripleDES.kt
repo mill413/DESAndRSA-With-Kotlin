@@ -43,4 +43,16 @@ class TripleDES() {
         val des3 = DES(keys[2])
         return des1.decrypt(des2.encrypt(des3.decrypt(cypherText)))
     }
+
+    fun decrypt(plainText: String): Bits {
+        val resList = arrayListOf<Bits>()
+        plainText.toBits().forEach {
+            resList.add(decrypt(it))
+        }
+        var res = Bits(0)
+        resList.forEach {
+            res+=it
+        }
+        return res
+    }
 }
