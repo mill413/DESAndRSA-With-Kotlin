@@ -11,13 +11,11 @@ class Bits(bitSize: Int = 64) {
         }
     }
 
-    var size: Int
+    private var size: Int
         get() {
             return bits.size
         }
-        set(value) {
-
-        }
+        set(value) {}
 
     constructor(externBits: Bits) : this() {
         if (size >= externBits.size) {
@@ -106,6 +104,32 @@ class Bits(bitSize: Int = 64) {
         val res = Bits(this.bits.subList(intRange.first, intRange.last + 1))
         return res
     }
+
+    fun toHex(): String {
+        var res = ""
+        val copybits = bits
+        if (copybits.size % 4 != 0) {
+            val remain = 4 - copybits.size % 4
+            for (i in 0 until remain) {
+                copybits.add(0)
+            }
+        }
+        for (i in 0 until copybits.size step 4) {
+            val dig = copybits[i] + copybits[i + 1] * 2 + copybits[i + 2] * 4 + copybits[i + 3] * 8
+            if (dig < 10) res += dig.toString()
+            else res += when (dig) {
+                10 -> "A"
+                11 -> "B"
+                12 -> "C"
+                13 -> "D"
+                14 -> "E"
+                15 -> "F"
+                else -> {
+                }
+            }
+        }
+        return res.reversed()
+    }
 }
 
 fun Byte.toBits(): Bits {
@@ -165,7 +189,7 @@ fun String.toBits(): ArrayList<Bits> {
         plainText = plainText.plus(plainText.substring(0, remain))
     }
 
-    var strArr = arrayListOf<String>()
+    val strArr = arrayListOf<String>()
     var tmp = ""
     for (i in plainText.indices) {
         if (i % 8 == 0 && i != 0) {
@@ -175,7 +199,7 @@ fun String.toBits(): ArrayList<Bits> {
         tmp += plainText[i]
     }
     strArr.add(tmp)
-    var bitsArr = arrayListOf<Bits>()
+    val bitsArr = arrayListOf<Bits>()
     strArr.forEach { _str ->
         var res = Bits(0)
         _str.forEach {

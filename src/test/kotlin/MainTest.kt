@@ -18,7 +18,7 @@ fun main() {
 //    println("明文:${plainText.toBits()}")
     println("密钥:${key}")
 //    println("密钥:${key.toBits()}")
-    println("密文:${cipherText}")
+    println("密文:${cipherText.toHex()}")
     println("DES解密:")
     println("密文:${cipherText}")
     println("密钥:${key}")
