@@ -1,6 +1,7 @@
 package DES
 
 import bits.Bits
+import bits.toBits
 
 class DES(key: Bits) {
 
@@ -339,6 +340,23 @@ class DES(key: Bits) {
     }
 
     /**
+     * 加密
+     * @param plainText 待加密字符串
+     * @return 加密后的密文
+     */
+    fun encrypt(plainText: String): Bits {
+        val resList = arrayListOf<Bits>()
+        plainText.toBits().forEach {
+            resList.add(encrypt(it))
+        }
+        var res = Bits(0)
+        resList.forEach {
+            res+=it
+        }
+        return res
+    }
+
+    /**
      * 解密
      * @param cypherText 64位密文
      * @return 64位明文
@@ -357,5 +375,22 @@ class DES(key: Bits) {
         }
 
         return finalPermutation(r + l)
+    }
+
+    /**
+     * 解密
+     * @param plainText 待解密字符串
+     * @return 解密后的明文
+     */
+    fun decrypt(plainText: String): Bits {
+        val resList = arrayListOf<Bits>()
+        plainText.toBits().forEach {
+            resList.add(decrypt(it))
+        }
+        var res = Bits(0)
+        resList.forEach {
+            res+=it
+        }
+        return res
     }
 }

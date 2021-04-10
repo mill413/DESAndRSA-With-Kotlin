@@ -1,6 +1,7 @@
 package DES
 
 import bits.Bits
+import bits.toBits
 
 class TripleDES() {
     var keys = arrayListOf<Bits>()
@@ -22,6 +23,18 @@ class TripleDES() {
         val des2 = DES(keys[1])
         val des3 = DES(keys[2])
         return des3.encrypt(des2.decrypt(des1.encrypt(plainText)))
+    }
+
+    fun encrypt(plainText: String): Bits {
+        val resList = arrayListOf<Bits>()
+        plainText.toBits().forEach {
+            resList.add(encrypt(it))
+        }
+        var res = Bits(0)
+        resList.forEach {
+            res+=it
+        }
+        return res
     }
 
     fun decrypt(cypherText: Bits): Bits {

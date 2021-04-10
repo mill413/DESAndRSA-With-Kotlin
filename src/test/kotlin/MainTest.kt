@@ -4,14 +4,14 @@ import bits.toBits
 
 @ExperimentalStdlibApi
 fun main() {
-    val plainText = (0..99).random().toBits() + (0..99).random().toBits()
-    val key = (0..99).random().toBits() + (0..99).random().toBits()
+//    val plainText = (0..99).random().toBits() + (0..99).random().toBits()
+//    val key = (0..99).random().toBits() + (0..99).random().toBits()
 
-//    val plainText = "WenShiYi"
-//    val key = "XiJiaYi"
+    val plainText = "WenShiYi"
+    val key = "XiJiaYi"
 
-//    val des = DES(key.toBits()[0])
-    val des = DES(key)
+    val des = DES(key.toBits()[0])
+//    val des = DES(key)
     val cipherText = des.encrypt(plainText)
     println("DES加密:")
     println("明文:${plainText}")
