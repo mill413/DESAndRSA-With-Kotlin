@@ -166,7 +166,7 @@ fun Long.toBits(): Bits {
     val value = this
     for (i in 0 until typeLength) {
         res.bits[i] =
-            if ((value and ((1 shl i).toLong())) == (1 shl i).toLong())
+            if ((value and ((1L shl i))) == (1L shl i))
                 1
             else
                 0

@@ -351,7 +351,7 @@ class DES(key: Bits) {
         }
         var res = Bits(0)
         resList.forEach {
-            res+=it
+            res += it
         }
         return res
     }
@@ -389,7 +389,7 @@ class DES(key: Bits) {
         }
         var res = Bits(0)
         resList.forEach {
-            res+=it
+            res += it
         }
         return res
     }

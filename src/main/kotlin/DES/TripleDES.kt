@@ -32,7 +32,7 @@ class TripleDES() {
         }
         var res = Bits(0)
         resList.forEach {
-            res+=it
+            res += it
         }
         return res
     }
@@ -51,7 +51,7 @@ class TripleDES() {
         }
         var res = Bits(0)
         resList.forEach {
-            res+=it
+            res += it
         }
         return res
     }

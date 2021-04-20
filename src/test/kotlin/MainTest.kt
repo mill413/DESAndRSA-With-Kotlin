@@ -24,10 +24,15 @@ fun main() {
     println("密钥:${key}")
     println("明文:${des.decrypt(cipherText)}")
 
+//    val keys = arrayListOf(
+//        (0..99).random().toBits() + (0..99).random().toBits(),
+//        (0..99).random().toBits() + (0..99).random().toBits(),
+//        (0..99).random().toBits() + (0..99).random().toBits()
+//    )
     val keys = arrayListOf(
-        (0..99).random().toBits() + (0..99).random().toBits(),
-        (0..99).random().toBits() + (0..99).random().toBits(),
-        (0..99).random().toBits() + (0..99).random().toBits()
+        "test".toBits()[0],
+        "test".toBits()[0],
+        "test".toBits()[0],
     )
     val tripleDes = TripleDES(keys)
     val tripleCiphertext = tripleDes.encrypt(plainText)
