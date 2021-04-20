@@ -44,7 +44,7 @@ class RSA {
         privateKey = keyPair.second
     }
 
-    fun encrypt(plaintext: Int): Int {
+    private fun encrypt(plaintext: Int): Int {
         return quickPower(plaintext.toLong(), pulicKey.cry, pulicKey.num).toInt()
     }
 
@@ -57,8 +57,8 @@ class RSA {
         return res.toUpperCase()
     }
 
-    fun decrypt(cypherText: Int): Long {
-        return quickPower(cypherText.toLong(), privateKey.cry, privateKey.num)
+    private fun decrypt(cypherText: Int): Int {
+        return quickPower(cypherText.toLong(), privateKey.cry, privateKey.num).toInt()
     }
 
     fun decrypt(cypherText: String): String {
@@ -70,6 +70,33 @@ class RSA {
             }
             val dig = Integer.parseInt(num, 16)
             val digCy = decrypt(dig)
+            val char = digCy.toChar()
+//            println("$num:$dig:$digCy:$char")
+            res += char
+            num = ""
+        }
+
+        return res
+    }
+
+    fun sign(info: String): String {
+        var res = ""
+        info.forEach {
+//            println("$it:${it.toInt()}:${encrypt(it.toInt())}:${encrypt(it.toInt()).toBits().toHex()}")
+            res = res.plus(decrypt(it.toInt()).toBits().toHex())
+        }
+        return res.toUpperCase()
+    }
+
+    fun verify(info: String): String {
+        var num = ""
+        var res = ""
+        for (i in info.indices step 8) {
+            for (j in 0 until 8) {
+                num = num.plus(info[i + j])
+            }
+            val dig = Integer.parseInt(num, 16)
+            val digCy = encrypt(dig)
             val char = digCy.toChar()
 //            println("$num:$dig:$digCy:$char")
             res += char
